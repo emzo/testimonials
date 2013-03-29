@@ -67,12 +67,17 @@ class Woothemes_Widget_Testmonials extends WP_Widget {
 		$title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base );
 			
 		/* Before widget (defined by themes). */
-		// echo $before_widget;
-
 		$args = array();
 
+		$args['before'] = $before_widget;
+		$args['after'] = $after_widget;
+
 		/* Display the widget title if one was input (before and after defined by themes). */
-		if ( $title ) { $args['title'] = $title; }
+		if ( $title ) {
+			$args['before_title'] = $before_title;
+			$args['title'] = $title;
+			$args['after_title'] = $after_title;
+		}
 		
 		/* Widget content. */
 		// Add actions for plugins/themes to hook onto.
@@ -97,10 +102,6 @@ class Woothemes_Widget_Testmonials extends WP_Widget {
 
 		// Add actions for plugins/themes to hook onto.
 		do_action( $this->woothemes_widget_cssclass . '_bottom' );
-
-		/* After widget (defined by themes). */
-		// echo $after_widget;
-
 	} // End widget()
 
 	/**
@@ -228,7 +229,8 @@ class Woothemes_Widget_Testmonials extends WP_Widget {
 					'ID' => __( 'Entry ID', 'woothemes-testimonials' ), 
 					'title' => __( 'Title', 'woothemes-testimonials' ), 
 					'date' => __( 'Date Added', 'woothemes-testimonials' ), 
-					'menu_order' => __( 'Specified Order Setting', 'woothemes-testimonials' )
+					'menu_order' => __( 'Specified Order Setting', 'woothemes-testimonials' ), 
+					'rand' => __( 'Random Order', 'woothemes-testimonials' )
 					);
 	} // End get_orderby_options()
 
@@ -239,8 +241,8 @@ class Woothemes_Widget_Testmonials extends WP_Widget {
 	 */
 	protected function get_order_options () {
 		return array(
-					'asc' => __( 'Ascending', 'woothemes-testimonials' ), 
-					'desc' => __( 'Descending', 'woothemes-testimonials' )
+					'ASC' => __( 'Ascending', 'woothemes-testimonials' ), 
+					'DESC' => __( 'Descending', 'woothemes-testimonials' )
 					);
 	} // End get_order_options()
 } // End Class
